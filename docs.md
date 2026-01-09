@@ -1,4 +1,4 @@
-# nikolaoly.sty – Complete Beginner's Guide
+# nikolaoly.sty – Complete Guide
 
 **This style file is based on [Yu Dylan's](https://github.com/Yu-Dylan/) original LaTeX style package, with extensive modifications and enhancements.**
 
