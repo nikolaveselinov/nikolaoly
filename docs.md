@@ -1955,21 +1955,16 @@ If you encounter issues:
 ## Changelog
 
 ### Version 2.1 (January 2026)
-- **BREAKING CHANGE:** Title decorations now **OFF by default** (use `titledecorations` option to enable)
-- **NEW:** Added `sectionleaves` option for decorative leaf icons (🌿) in section headings (OFF by default)
-- **NEW:** Added `nosectionleaves` option for explicit control
-- Improved Bulgarian language support
+- Title decorations now **OFF by default** (use `titledecorations` option to enable)
+- Added `sectionleaves` option for decorative leaf icons (🌿) in section headings (OFF by default)
+- Added `nosectionleaves` option for explicit control
 - Enhanced documentation with comprehensive option reference
 - Added complete theorem environment listing
-- Expanded math macro documentation
 
 ### Version 2.0 (January 2025)
 - Original comprehensive release
 - Based on Yu Dylan's style file with extensive enhancements
 - Added Bulgarian language support
-- Added dark mode and retro color schemes
-- Comprehensive theorem environments
-- 150+ math shortcuts
 
 ---
 
