@@ -1128,7 +1128,7 @@ Standard number sets:
 \QQ              % Rationals: ℚ
 \RR              % Reals: ℝ
 \CC              % Complex numbers: ℂ
-\FF              % Field (e.g., \FF_p): 픽
+\FF              % Field (e.g., \FF_p)
 \PP              % Projective space: ℙ
 ```
 
