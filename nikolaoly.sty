@@ -513,8 +513,6 @@
 
 \usepackage{thmtools}
 
-\RequirePackage{xcolor}
-
 \definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
 \definecolor{sangria}{rgb}{0.57, 0.0, 0.04}
 
@@ -3297,8 +3295,6 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 	% \fi
 	%%fakesection Hyperref
 	\ifnikolaolypkg
-		\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
-		\usepackage{xcolor}
 		\ifnikolaolyhref
 			\usepackage[colorlinks=true]{hyperref}
 			\hypersetup{urlcolor=RoyalPurple,linkcolor=Ultra,citecolor=SkyBlue2}
@@ -3376,11 +3372,9 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 		\usepackage[shortlabels]{enumitem}
 		% a list I like for walkthrough's --- Drew-style parts
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
-		\usepackage{textcomp}
 		\usepackage{multirow}
 		% Tiny tiny optimizations:
 		\usepackage{mathtools}
-		\usepackage{microtype}
 	\fi
 
 	%%fakesection \maketitle configuration
@@ -3494,7 +3488,6 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \usepackage{tikzducks}
 % \colorlet{titlepagecolor}{\maincolor}
 \usepackage{multirow}
-\usepackage{mdframed}
 
 \usetikzlibrary{arrows, automata}
 
@@ -3622,13 +3615,12 @@ squid/.pic={
     \thispagestyle{empty}%
 }
 
-\usepackage[T1]{fontenc}
 % mathpazo (Palatino) lacks T2A; skip when Bulgarian is active to avoid warnings
 \ifnikolaolybulgarian\else
   \usepackage{mathpazo}
 \fi
 
-\usepackage{tikz, tikz-cd, pgfplots} 
+\usepackage{tikz-cd, pgfplots}
 \usepgfplotslibrary{fillbetween}
 \usetikzlibrary{arrows.meta,arrows,scopes,patterns,shapes.geometric,angles,quotes,intersections,calc}
 \makeatletter
@@ -3695,10 +3687,13 @@ ylabel={$y$},          % default put y on y-axis
 \usepackage{float}
  
 \ifnikolaolydarkmode
-\usepackage{pagecolor}
-\hypersetup{urlcolor=Cyan,linkcolor=red,citecolor=SkyBlue2}
+\ifnikolaolypkg
+  \ifnikolaolyhref
+    \hypersetup{urlcolor=Cyan,linkcolor=red,citecolor=SkyBlue2}
+  \fi
+\fi
 
-\pagecolor{black} %black
+\pagecolor{black} % black
 
 \color[rgb]{1,1,1} %white
 
