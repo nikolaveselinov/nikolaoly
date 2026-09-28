@@ -1,218 +1,88 @@
-# nikolaoly.sty – Complete Guide
+# nikolaoly.sty
 
-**This style file is based on [Yu Dylan's](https://github.com/Yu-Dylan/) original LaTeX style package, with extensive modifications and enhancements.**
+`nikolaoly.sty` is a LaTeX package for olympiad problem sets, handouts, and lecture notes. It collects the formatting and macros used across these documents without requiring each source file to carry the same preamble.
 
-A comprehensive LaTeX package for creating beautiful, professional-looking olympiad problems, lecture notes, and handouts with customizable theorem styles, problem helpers, and modern design options.
-
-**Table of Contents**
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [First Document](#first-document)
-- [Package Options (Themes & Features)](#package-options-themes--features)
-- [Using Theorems](#using-theorems)
-- [Working with Problem Sets](#working-with-problem-sets)
-- [Color Customization](#color-customization)
-- [Fonts and Language Support](#fonts-and-language-support)
-- [Page Layout and Headers](#page-layout-and-headers)
-- [Math Macros & Shortcuts](#math-macros--shortcuts)
-- [Boxes and Callouts](#boxes-and-callouts)
-- [Diagrams and Graphics](#diagrams-and-graphics)
-- [Advanced Features](#advanced-features)
-- [Title Page Decorations](#title-page-decorations)
-- [Troubleshooting](#troubleshooting)
-- [Complete Examples](#complete-examples)
-
----
-
-## Getting Started
-
-### What is nikolaoly.sty?
-
-`nikolaoly.sty` is a LaTeX style package that adds professional design and layout features specifically for:
-- **Olympiad problems and competitions** (hence the name)
-- **Lecture notes and handouts**
-- **Problem sets with point markers**
-- **Mathematical documents** with fancy theorem blocks
-
-The package provides:
-- **Various theorem environments** with multiple color themes (default, retro, dark mode)
-- **Problem-set formatting** with points, required markers, and icons
-- **Easy color customization**
-- **Bulgarian language support** for labels and text
-- **Pre-configured fonts and layouts** optimized for readability
-- **Various useful math shortcuts** (operators, bracket styles, inequality symbols)
-- **Diagram and Asymptote support**
-
----
+The package is based on [Dylan Yu's original style file](https://github.com/Yu-Dylan/). The license and attribution are retained in the source.
 
 ## Installation
 
-### Step 1: Obtain the Package
+For a single project, place `nikolaoly.sty` next to the main `.tex` file:
 
-Get the `nikolaoly.sty` file from the repository or your source.
-
-### Step 2: Place the File
-
-Place `nikolaoly.sty` in **one** of these locations:
-
-**Option A: Same directory as your document** (simplest)
-```
-my-project/
-  └── article.tex
-  └── nikolaoly.sty
+```text
+project/
+├── main.tex
+└── nikolaoly.sty
 ```
 
-**Option B: System-wide TeX directory** (for reuse)
-```bash
-# On Linux/Mac:
-cp nikolaoly.sty ~/texmf/tex/latex/nikolaoly/
-texhash ~/texmf
+Then load it in the preamble:
 
-# On Windows, check your MiKTeX directory structure
-```
-
-### Step 3: Install Dependencies
-
-The package will automatically load most dependencies. However, ensure you have:
-- A modern TeX distribution (TeX Live 2021+, MiKTeX 21+, or MacTeX)
-- For Bulgarian: `texlive-lang-cyrillic` (or equivalent)
-- For chess diagrams: `texlive-games` 
-- For Asymptote: `asymptote` binary installed
-
-```bash
-# Ubuntu/Debian
-sudo apt-get install texlive-games texlive-lang-cyrillic asymptote
-
-# macOS
-brew install asymptote
-# TeX Live should include the rest
-
-# Windows
-# Use MiKTeX Package Manager or your installation method
-```
-
-### Step 4: Load the Package
-
-In your `.tex` file, after `\documentclass`:
 ```latex
 \usepackage{nikolaoly}
 ```
 
-That's it! Your document now has access to all features.
+A reasonably complete TeX Live or MiKTeX installation is recommended. Some features have additional dependencies: Bulgarian typesetting needs Cyrillic language support, chess notation can use `skak`, and Asymptote output requires an Asymptote installation. Where practical, the package falls back or disables the corresponding feature when an optional dependency is absent.
 
----
-
-## First Document
-
-Here's a minimal example to get you started:
+## Minimal example
 
 ```latex
 \documentclass{article}
 \usepackage{nikolaoly}
 
-\title{My First Document}
-\author{Your Name}
-\date{\today}
+\title{Inequalities}
+\author{Nikola Veselinov}
+\date{}
 
 \begin{document}
 
-\nikolatitle % Creates a styled title page
+\nikolatitle
 
 \begin{theorem}
-If $a, b > 0$, then $\sqrt{ab} \leq \frac{a+b}{2}$.
+For positive real numbers $a$ and $b$,
+\[
+  \sqrt{ab}\leq \frac{a+b}{2}.
+\]
 \end{theorem}
 
 \begin{proof}
-We have $(a-b)^2 \geq 0$, which gives $a^2 + b^2 \geq 2ab$.
-Adding $2ab$ to both sides and taking the square root yields the result.
+This is equivalent to $(\sqrt a-\sqrt b)^2\geq 0$.
 \end{proof}
 
 \end{document}
 ```
 
-**To compile:**
-```bash
-pdflatex article.tex
-```
+## Package options
 
----
+Options are passed in the usual way:
 
-## Package Options (Themes & Features)
-
-When loading the package, add options in square brackets:
 ```latex
-\usepackage[option1, option2]{nikolaoly}
+\usepackage[secthm,sectionmark,diagrams]{nikolaoly}
 ```
 
-### Visual Themes
-
 | Option | Effect | Default |
-|--------|--------|---------|
-| `retro` | Use retro color palette (pastel blues, pinks, greens) | OFF |
-| `darkmode` | Black page background with white text; dark theorem boxes | OFF |
-| `sleek` | Convenience preset; enables `secthm`, `mdthm`, `colorsec` | OFF |
-
-**Example:**
-```latex
-\usepackage[retro]{nikolaoly}        % Retro colors
-\usepackage[darkmode]{nikolaoly}     % Dark mode
-\usepackage[retro, darkmode]{nikolaoly}  % Retro dark mode
-```
-
-### Typography & Fonts
-
-| Option | Effect | Default |
-|--------|--------|---------|
-| `cabin` | Use the Cabin font family (sans-serif) | OFF |
-| `bulgarian` | Load Bulgarian language support (Cyrillic) | OFF |
-
-### Page Layout
-
-| Option | Effect | Default |
-|--------|--------|---------|
-| `fancy` / `nofancy` | Fancy headers and footers | ON |
-| `hdr` / `nohdr` | Include headers in fancy layout | ON |
-| `titlemark` / `sectionmark` | Show document title (titlemark) or section (sectionmark) in header | titlemark ON |
-| `titledecorations` / `notitledecorations` | Show decorative squares on title page | **OFF** (changed in v2.1) |
-| `sectionleaves` / `nosectionleaves` | Show decorative leaf icons (🌿) before section numbers | **OFF** |
-
-**Example:**
-```latex
-\usepackage[nofancy]{nikolaoly}       % No fancy headers
-\usepackage[hdr, titlemark]{nikolaoly}  % Headers with title
-\usepackage[titledecorations]{nikolaoly}  % Enable title page decorations
-\usepackage[sectionleaves]{nikolaoly}  % Enable leaf icons in section headings
-\usepackage[titledecorations, sectionleaves]{nikolaoly}  % Both enabled
-```
-
-### Theorem System
-
-| Option | Effect | Default |
-|--------|--------|---------|
-| `thm` / `nothm` | Load the theorem system | ON |
-| `secthm` / `nosecthm` | Number theorems within sections (e.g., 2.1, 2.2) | OFF |
-| `mdthm` / `nomdthm` | Use mdframed-based theorem styling (requires `pkg`) | OFF |
-
-### Features
-
-| Option | Effect | Default |
-|--------|--------|---------|
-| `diagrams` / `nodiagrams` | Load diagram and tikz-cd support | OFF |
-| `asy` / `noasy` | Asymptote support for graphics | ON |
-| `hints` | Enable hints/answers system | OFF |
-| `href` / `nohref` | Colored hyperlinks with `hyperref` | ON |
-| `colorsec` / `nocolorsec` | Color section headings (KOMA-Script only) | OFF |
-
-### Other Options
-
-| Option | Effect | Default |
-|--------|--------|---------|
-| `nosetup` | Skip page setup; sets `thm=OFF` | OFF |
-| `nopkg` | Disable auxiliary package loading | OFF |
-| `nopts` | Suppress point markers in problem lists | OFF |
-| `noauthor` | Skip author formatting | OFF |
-
----
+| --- | --- | --- |
+| `retro` | Use the retro palette | off |
+| `darkmode` | Use a dark page and matching theorem styling | off |
+| `sleek` | Enable `secthm`, `mdthm`, and `colorsec` | off |
+| `cabin` | Use Cabin where supported | off |
+| `bulgarian` | Enable Bulgarian labels and Cyrillic support | off |
+| `fancy` / `nofancy` | Enable or disable package page/header setup | on |
+| `hdr` / `nohdr` | Enable or suppress the configured header | on |
+| `titlemark` / `sectionmark` | Put the document title or current section in the outer header | `titlemark` |
+| `titledecorations` / `notitledecorations` | Enable or disable title-page decorations | off |
+| `sectionleaves` / `nosectionleaves` | Enable or disable leaf icons in section numbers | off |
+| `thm` / `nothm` | Enable or disable theorem environments | on |
+| `secthm` / `nosecthm` | Number theorems within sections | off |
+| `mdthm` / `nomdthm` | Enable or disable framed theorem styling | off |
+| `diagrams` / `nodiagrams` | Enable or disable commutative-diagram helpers | off |
+| `asy` / `noasy` | Enable or disable Asymptote support | on |
+| `patchasy` | Use `patch-asy` instead of `asymptote` | off |
+| `hints` | Enable the hints/answers system | off |
+| `href` / `nohref` | Enable or disable colored hyperlinks | on |
+| `colorsec` / `nocolorsec` | Enable or disable colored KOMA-Script section headings | off |
+| `nopts` | Suppress point values in problem lists | off |
+| `noauthor` | Suppress the author in configured headers | off |
+| `nosetup` | Disable the package's main page setup; theorem setup is also disabled | off |
+| `nopkg` | Disable the auxiliary feature bundle; `mdthm` and Asymptote are also disabled | off |
 
 ## Complete Package Options Reference
 
@@ -527,9 +397,7 @@ This section provides documentation of every option available in `nikolaoly.sty`
   ```
 
 #### `nopdf`
-- **Default:** OFF
-- **Effect:** Skips PDF-specific enhancements
-- **Use Case:** DVI output, compatibility mode
+Legacy compatibility option. It is accepted by the package but currently has no effect; new documents should not use it.
 
 #### `noauthor`
 - **Default:** OFF
@@ -551,9 +419,7 @@ This section provides documentation of every option available in `nikolaoly.sty`
   ```
 
 #### `ht`
-- **Default:** OFF
-- **Effect:** Internal flag for specialized typesetting
-- **Use Case:** Advanced users only
+Legacy compatibility option. It is accepted by the package but currently has no effect; new documents should not use it.
 
 ### Combining Options
 
