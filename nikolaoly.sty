@@ -124,7 +124,7 @@
 }
 
 
-%%fakesection Argument processing
+% Options and global settings
 % Default Arguments
 % We include "nikolaoly" in all of these to make sure
 % that they don't collide with anything in external packages
@@ -322,7 +322,7 @@
   \fi
 \fi
 
-%%fakesection Some macros
+% Macros
 %Small commands
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
@@ -3266,7 +3266,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%fakesection Asymptote setup
+% Asymptote
 \ifnikolaolyasy
   \IfFileExists{asymptote.sty}{%
     \ifnikolaolypatchasy
@@ -3279,7 +3279,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
     \nikolaolyasyfalse
   }%
 \fi
-%%fakesection BEGIN MAIN SETUP
+% Main setup
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3293,13 +3293,13 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 	%		\date{\today}
 	%	}
 	% \fi
-	%%fakesection Hyperref
+	% Hyperlinks and references
 	\ifnikolaolypkg
 		\ifnikolaolyhref
 			\usepackage[colorlinks=true]{hyperref}
 			\hypersetup{urlcolor=RoyalPurple,linkcolor=Ultra,citecolor=SkyBlue2}
 		\fi
-		\usepackage[nameinlink]{cleveref}
+		\usepackage[capitalise,nameinlink]{cleveref}
 	\fi
 
 \definecolor{Purple06}{RGB}{029, 002, 053}
@@ -3346,7 +3346,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 	\fi
 
 
-	%%fakesection Loads a bunch of useful packages (but allow disabling)
+	% Auxiliary packages
 	\ifnikolaolypkg
 		\IfFileExists{von.sty}{\usepackage{von}}{}
 		\usepackage{listings}
@@ -3370,9 +3370,8 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 			frame=none
 		}
 		\usepackage[shortlabels]{enumitem}
-		% a list I like for walkthrough's --- Drew-style parts
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
-		% Tiny tiny optimizations:
+		% Math and typography
 		\usepackage{mathtools}
 	\fi
 
@@ -3392,7 +3391,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
   \patchcmd{\@maketitle}{\@author}{\merri\@author}{}{}
   \patchcmd{\@maketitle}{\@date}{\merri\color{\maincolor}{\@date}}{}{}
 
-	%%fakesection Commutative diagrams support
+	% Commutative diagrams
 	\ifnikolaolydiagrams
 		\usepackage{diagrams}
 		\newarrow{Inj}C--->
@@ -3410,7 +3409,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
 	\fi
 
-	%%fakesection Page Setup
+	% Page setup
 	\ifnikolaolyfancy
 		\@ifundefined{KOMAClassName}
 		{%
@@ -3469,7 +3468,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 			\fi
 		}
 	\fi
-	%%fakesection Hints
+	% Hints
 	\ifnikolaolyhints
 		\usepackage{answers}
 		\Newassociation{hint}{hintitem}{hints}
@@ -3478,7 +3477,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}} % chktex 27
 	\fi
 \makeatother
-%%fakesection END MAIN SETUP
+% End main setup
 
 \usepackage{multicol}
 \usepackage{afterpage}
