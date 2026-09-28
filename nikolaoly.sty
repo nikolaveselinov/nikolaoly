@@ -3286,13 +3286,6 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \makeatletter
 
 \ifnikolaolysetup
-	%%fakesection Set up author and date
-	% \ifnikolaolyauthor
-	%	\AtBeginDocument {%
-	%		\author{Nikola Yu}
-	%		\date{\today}
-	%	}
-	% \fi
 	% Hyperlinks and references
 	\ifnikolaolypkg
 		\ifnikolaolyhref
@@ -3375,7 +3368,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 		\usepackage{mathtools}
 	\fi
 
-	%%fakesection \maketitle configuration
+	% Title configuration
 	\@ifundefined{KOMAClassName}%
 		{} % do nothing outside KOMA class
 		{% If KOMA exists. . .
