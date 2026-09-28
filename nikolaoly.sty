@@ -5,7 +5,7 @@
 %
 % Modifications and enhancements:
 % Copyright (c) 2025-2026 Nikola Veselinov [nikola.veselinov.veselinov@gmail.com]
-% https://nikolaveselinov.github.io/ || https://github.io/nikolaveselinov/
+% https://nikolaveselinov.github.io/ || https://github.com/nikolaveselinov/
 %
 % Permission is hereby granted, free of charge, to any person or organization
 % obtaining a copy of the software and accompanying documentation covered by
@@ -28,7 +28,8 @@
 % FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
 % ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 % DEALINGS IN THE SOFTWARE.
-\ProvidesPackage{nikolaoly}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nikolaoly}[2026/09/28 Olympiad handout and notes style]
 
 % Option flags (defined early so they can be used in conditionals below)
 \newif\ifnikolaolyfancy\nikolaolyfancytrue
@@ -65,10 +66,8 @@
 \usepackage{shapepar}
 \usepackage{changepage}
 \usepackage{microtype}
-\usepackage{lipsum}
 \usepackage{tikz}
 \usepackage{natbib}
-\usepackage{graphicx}
 \usepackage{fontawesome}
 \usepackage{paralist}
 \IfFileExists{skak.sty}{%
@@ -86,14 +85,8 @@
 }%
 \RequirePackage{etoolbox}
 
-\DeclareRobustCommand{\alegreyafont}{\fontfamily{Alegreya-LF}\selectfont} % defines alegreya
+\DeclareRobustCommand{\alegreyafont}{\fontfamily{Alegreya-LF}\selectfont}
 \DeclareRobustCommand{\notofont}{\fontfamily{NotoSans-TLF}\selectfont}
-% Use Computer Modern Super for merri when Bulgarian is active (has T2A support)
-\ifnikolaolybulgarian
-  \DeclareRobustCommand{\merri}{\fontfamily{cmss}\selectfont}
-\else
-  \DeclareRobustCommand{\merri}{\fontfamily{MerriwthrSans-OsF}\selectfont} % TeX 2021 update
-\fi
 
 % Early fallbacks so \nikolatitle is always defined even if later TikZ decoration is unavailable
 \providecommand{\titlepagedecoration}{}
@@ -164,22 +157,7 @@
     \changesecondcolor{tempcolor2}
 }
 
-\newif\ifnikolaolyfancy\nikolaolyfancytrue
-\newif\ifnikolaolyhdr\nikolaolyhdrtrue
-\newif\ifnikolaolyhref\nikolaolyhreftrue
-\newif\ifnikolaolysetup\nikolaolysetuptrue
-\newif\ifnikolaolythm\nikolaolythmtrue
-\newif\ifnikolaolysecthm\nikolaolysecthmfalse
-\newif\ifnikolaolyht\nikolaolyhtfalse
-\newif\ifnikolaolypkg\nikolaolypkgtrue
-\newif\ifnikolaolypdf\nikolaolypdftrue
-\newif\ifnikolaolyauthor\nikolaolyauthortrue
-\newif\ifnikolaolymdthm\nikolaolymdthmfalse
-\newif\ifnikolaolydiagrams\nikolaolydiagramsfalse
-\newif\ifnikolaolypatchasy\nikolaolypatchasyfalse
-\newif\ifnikolaolyhints\nikolaolyhintsfalse
-%Receive Arguments
-% allow href to override this one
+% Receive package options.
 
 \DeclareOption{sleek}{\nikolaolysecthmtrue\nikolaolymdthmtrue\nikolaolycolorsectrue} % long docs
 \DeclareOption{nopts}{\nikolaolynoptstrue}
@@ -213,6 +191,7 @@
 \DeclareOption{nocolorsec}{\nikolaolycolorsecfalse}
 
 \DeclareOption{patchasy}{\nikolaolypatchasytrue}
+\DeclareOption{asy}{\nikolaolyasytrue}
 \DeclareOption{noasy}{\nikolaolyasyfalse}
 
 \DeclareOption{hints}{\nikolaolyhintstrue}
@@ -320,7 +299,16 @@
 \fi
 \usepackage{lmodern}
 
-% if packages not loaded, turn off mdthm and asy
+% Merriweather Sans has no T2A support; use a Cyrillic-capable sans face in
+% Bulgarian mode. This must be decided after package options and language
+% support have been processed.
+\ifnikolaolybulgarian
+  \DeclareRobustCommand{\merri}{\fontfamily{cmss}\selectfont}
+\else
+  \DeclareRobustCommand{\merri}{\fontfamily{MerriwthrSans-OsF}\selectfont}
+\fi
+
+% If auxiliary packages are disabled, turn off features that require them.
 \ifnikolaolypkg\else\nikolaolymdthmfalse\fi
 \ifnikolaolypkg\else\nikolaolyasyfalse\fi
 
@@ -3293,10 +3281,6 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
     \nikolaolyasyfalse
   }%
 \fi
-\ifnikolaolythm
-	\usepackage{amsthm}
-\fi
-
 %%fakesection BEGIN MAIN SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3436,8 +3420,8 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 	%%fakesection Page Setup
 	\ifnikolaolyfancy
 		\@ifundefined{KOMAClassName}
-		{
-		    \usepackage{fancyhdr}
+		{%
+			\usepackage{fancyhdr}
 			\setlength{\headheight}{0.75in}
 			\setlength{\oddsidemargin}{0in}
 			\setlength{\evensidemargin}{0in}
@@ -3450,33 +3434,47 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 			\setlength{\footskip}{0.3in}
 			\ifnikolaolyhdr
 				\renewcommand{\headrulewidth}{0.5pt}
-				\renewcommand{\footrulewidth}{0.0pt}
+				\renewcommand{\footrulewidth}{0pt}
 				\pagestyle{fancy}
-				\lhead{Nikola Yu}
+				\ifnikolaolyauthor
+					\lhead{\theauthor}
+				\else
+					\lhead{}
+				\fi
 				\chead{}
-				\rhead{\nouppercase{\leftmark}}
+				\ifnikolaolytitlemark
+					\rhead{\nouppercase{\thetitle}}
+				\else
+					\rhead{\nouppercase{\rightmark}}
+				\fi
 				\lfoot{}
 				\cfoot{\thepage}
 				\rfoot{}
 			\fi
 		}
-		
-		
+		{%
 			\usepackage[headsepline]{scrlayer-scrpage}
 			\renewcommand{\headfont}{}
 			\addtolength{\textheight}{3cm}
 			\setlength{\footskip}{0.2in}
 			\setlength{\headsep}{10pt}
 			\setlength{\headheight}{26pt}
-			\ihead{\sffamily\footnotesize\textbf{\theauthor} \textbf{\textcolor{\maincolor}{(\thedate )}}}
-			\chead{}
-			\cfoot{}
-			\ohead{\sffamily\footnotesize\textbf{\thetitle}}
-			\ofoot{\thepage}
-		
-		
-		
-		
+			\ifnikolaolyhdr
+				\ifnikolaolyauthor
+					\ihead{\sffamily\footnotesize\textbf{\theauthor}\ \textbf{\textcolor{\maincolor}{(\thedate)}}}
+				\else
+					\ihead{}
+				\fi
+				\chead{}
+				\cfoot{}
+				\ifnikolaolytitlemark
+					\ohead{\sffamily\footnotesize\textbf{\thetitle}}
+				\else
+					\ohead{\sffamily\footnotesize\textbf{\rightmark}}
+				\fi
+				\ofoot{\thepage}
+			\fi
+		}
 	\fi
 	%%fakesection Hints
 	\ifnikolaolyhints
