@@ -1,6 +1,6 @@
 # nikolaoly
 
-`nikolaoly.sty` is a LaTeX package for olympiad problem sets, handouts, and lecture notes. It provides theorem styles, problem-list helpers, page and header formatting, optional Bulgarian support, TikZ/Asymptote integration, and mathematical convenience macros.
+`nikolaoly.sty` is a LaTeX package for olympiad problem sets, handouts, and lecture notes. It provides theorem styles, problem-list helpers, page and header formatting, optional Bulgarian support, TikZ/Asymptote integration, and some convenience math macros.
 
 ## Usage
 
